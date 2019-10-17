@@ -49,6 +49,7 @@ module Handlebars
       )
     }
     rule(:parameters)  { parameter >> (space >> parameter).repeat }
+    rule(:parameters?) { parameters.maybe }
 
     rule(:unsafe_helper) { docurly >> space? >> identifier.as(:unsafe_helper_name) >> (space? >> parameters.as(:parameters)).maybe >> space? >> dccurly }
     rule(:safe_helper) { tocurly >> space? >> identifier.as(:safe_helper_name) >> (space? >> parameters.as(:parameters)).maybe >> space? >> tccurly }
@@ -97,6 +98,8 @@ module Handlebars
       gt >>
       space? >>
       identifier.as(:partial_name) >>
+      space? >>
+      parameters? >>
       space? >>
       dccurly
     }
