@@ -61,6 +61,11 @@ describe Handlebars::Handlebars do
         hbs.register_partial('brackets', "[{{name}}]")
         expect(evaluate("Hello {{> brackets}}", {name: 'world'})).to eq("Hello [world]")
       end
+
+      it 'using parameters' do
+        hbs.register_partial('brackets', "[{{fname}} {{lname}}]")
+        expect(evaluate("Hello {{> brackets fname='jon' lname='doe'}}")).to eq("Hello [jon doe]")
+      end
     end
 
     context 'helpers' do
